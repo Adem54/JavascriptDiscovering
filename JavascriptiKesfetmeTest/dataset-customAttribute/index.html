@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <div
+    id="test-div"
+    data-first-name="Kyle"
+    data-last-name="Cook"
+    data-active
+  ></div>
+
+<!--Bir gercek hayat  ornegi 
+
+    <button>Open Modal 1</button>
+<button>Open Modal 2</button>
+
+<div id="modal-1">Modal 1</div>
+<div id="modal-2">Modal 2</div>
+
+You want to write JavaScript so that the first button opens modal 1 and the second button opens modal 2,
+ but we want to do this in a way that is reusable so if we add a third button that opens a new modal 
+ we don't need to write any new JavaScript code.
+
+This may sound really difficult at first, but essentially all we need is some way to link each button to 
+their respective modal in the HTML. This is where data attributes come in.
+
+We can set a custom data attribute on each button that references the modal they are linked to. In our case 
+we can use the id of each modal as our reference.
+
+-->
+
+<button data-modal-id="modal-1">Open Modal 1</button>
+<button data-modal-id="modal-2">Open Modal 2</button>
+
+<div id="modal-1">Modal 1</div>
+<div id="modal-2">Modal 2</div>
+    <script>
+        const div = document.getElementById("test-div")
+
+console.log("dataset: ",div.dataset);
+//Biz data- seklinde yazarak custom attribute ler verebiliyoruz ve o attribute lere de
+//element uzerinden erisebiliyoruz..div.dataset
+ //{
+//     "firstName": "Kyle",
+//     "lastName": "Cook",
+//     "active": ""
+// }
+console.log(div.dataset.firstName)
+// Kyle
+console.log(div.dataset.lastName)
+// Cook
+/*  Writing Data Attributes
+In order to create a new data attribute in JavaScript we just need to add a new property to the dataset object with a value.
+*/
+//Kendimiz disarda direk dataset uzerinden attribute olusturabiliyorz..
+div.dataset.test = "Hi"
+console.log(div.dataset.test)
+// Hi
+/*
+<div
+  id="test-div"
+  data-test="Hi"
+  data-first-name="Kyle"
+  data-last-name="Cook"
+  data-active
+></div>
+*/
+
+//Updating Data Attributes
+div.dataset.firstName = "Sally"
+console.log(div.dataset.firstName)
+// Sally
+/*
+<div
+  id="test-div"
+  data-first-name="Sally"
+  data-last-name="Cook"
+  data-active
+></div>
+*/
+/* Delete data attributes
+Deleting data attributes is a bit different since we need to actually remove the property from our object. This is because if we try setting the value to undefined or null the dataset object will still have a reference to that property with that value of undefined or null and will set the value of our HTML data attribute to the string null or undefined.
+
+To delete an element we need to use the delete keyword to remove it completely from the object.
+
+*/
+
+delete div.dataset.active
+console.log(div.dataset.active)
+// undefined
+
+/*
+This will update the dataset object and our HTML which means our HTML will look like this.
+<div
+  id="test-div"
+  data-first-name="Sally"
+  data-last-name="Cook"
+></div>
+*/
+
+const buttons = document.querySelectorAll("[data-modal-id]")
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const modalId = button.dataset.modalId
+    const modal = document.getElementById(modalId)
+    modal.classList.add("show")
+  })
+})
+    </script>
+</body>
+</html>

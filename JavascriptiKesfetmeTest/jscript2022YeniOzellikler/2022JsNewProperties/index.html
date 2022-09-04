@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+let myArr=[1,2,3,4,5];
+           let x= myArr.at(-2);//4-Geriden -1,-2 diye basa dogru gel verdigin sayiya hangisi denk gelirse onu al
+           let myText="Hello";
+           let y=myText.at(-2);
+           console.log("x ",x);
+           console.log("y ",y);
+
+//Private, ozelligi ile artik tum, propertieslere erisilemiyor, veya mehtodlara
+           class Human {
+  #name = "John";
+  
+  setName(name) {
+    this.#name = name;
+  }
+}
+
+const human = new Human()
+//human.#name = 'Amy'  // ERROR!
+human.setName('Amy') // OK
+
+class Human2 {
+  name = "John";
+  
+  constructor(name) {
+    this.#setName('Amy') // OK
+  }
+  
+  #setName(name) {
+    this.name = name;
+  }
+}
+
+const human2 = new Human2()
+//human2.#setName('Amy') // ERROR!
+
+
+/*
+3. Top-level await
+Did you know that you couldn’t use await directly in code outside of the function? If not, then it’s not a big deal for you. But for the others — no need to worry as ES2022 will change that.
+Why would it be useful?
+
+It allows to load modules dynamically
+*/
+// const serviceName = await fetch("https://example.com/what-service-should-i-use")
+// const service = await import(`/services/${serviceName}.js`)
+
+// OR
+
+// const params = new URLSearchParams(location.search);
+// const theme = params.get('theme');
+// const stylingFunctions = await import(`/styling-functions-${theme}.js`);
+
+// //It allows to conditionally render modules
+// const date = new Date()
+
+// if(date.getFullYear() === 2023) {
+//   await require('/special-code-for-2023-year.js')
+// }
+
+  //Class Field Declarations
+
+//   Initially, we were only allowed to declare the class fields inside the constructor,
+// but now using this proposal of stage 4 we can also declare in the class itself without a need to call the constructor.
+
+class hello{
+      fields=0;
+      title;
+}
+
+// Private Methods and Fields
+// In this proposal, which is in stage 4, we will be able to directly declare the private class fields using the # symbol as their prefix.
+class hello2{
+      fields=0;
+      #title;//private
+}
+
+
+/*
+Similarly, we can set the methods and accessors private using the same symbol, 
+and we can also use getter and setter methods simultaneously with it.
+*/
+
+// class hello3{
+//       fields=0;
+//       #title;
+//       get #title(){
+//           return #title;
+//           }
+//       Set #title(){
+//           #title=null;
+//           }
+// }
+
+/*
+In the above example, title() has been replaced with #title() and has been turned to private.
+ It can now only be accessed from inside the class.
+*/
+
+/*
+ Scalable Object.prototype.hasOwnProperty()
+It was difficult to employ a prototype object. If we used object.prototype before, it would return unavailable. Also, we must ensure that hasOwnproperty() returns just built-in methods, as if we do not have access to all of them, it will simply override them. The old solution was to use the function Object.prototype.hasOwnProperty.call(). However, a new hasOwn() function has been added, which provides the same functionality as the previously mentioned function.
+*/
+// const obj1={ hello:’Hi’}
+// let hasHello1=Object.prototype.hasOwnProperty.call(obj1, ‘hello’);
+// let hasHello= obj1.hasOwn(obj1, ‘hello’);
+// console.log(hasHello);
+// console.log(hasHello1);
+
+/*
+Ergonomic brand checks for private fields
+As developers, we want code that is comfortable—ergo ergonomic private fields. This new feature lets us check
+ for the existence of a private field on a class without resorting to exception handling.
+ Listing 6. Check for the existence of a private field
+*/
+
+class Song { 
+  #artist; 
+  checkField(){ 
+    return #artist in this;
+  } 
+}
+let foo = new Song();
+foo.checkField(); // true
+
+
+/*
+hasOwn
+Object.hasOwn is an improved version of Object.hasOwnProperty. 
+It works for some edge cases, like when an object is created with Object.create(null). 
+Note that hasOwn is a static method—it doesn’t exist on instances.
+*/
+// let foo2 = Object.create(null);
+// foo.hasOwnProperty = function(){};
+// Object.hasOwnProperty(foo2, 'hasOwnProperty'); // Error: Cannot convert object to primitive value
+// Object.hasOwn(foo2, 'hasOwnProperty'); // true
+
+/*
+Error cause
+Last but not least, the Error class now incorporates cause support.
+ This allows for Java-like stack traces in error chains. 
+ The error constructor now allows for an options object that includes a cause field, as shown in Listing
+*/
+// throw new Error('Error message', { cause: errorCause });
+
+//Repeat methodu
+let str="Adem";
+console.log(str.repeat(5));//5 kez adem yazar
+
+//Starstwith
+console.log(str.startsWith("A"));//true
+//Endwith
+console.log(str.endsWith("s"));//false
+
+//includes
+console.log(str.includes("e"));//true
+
+let names=new Set();
+names.add("Adem");
+names.add("Zehra");
+console.log("names: ",names);
+//sizes ile icindeki eleman sayisi ni verir
+console.log("sizes: ",names.size);
+//Ayni isimden 1 tane eleman ekler yani icndeki elemanlari uniq olarak ekler
+//ayni isimden 2 kea eklemez yani
+names.add("Adem");
+console.log("names: ",names);
+names.add("Zeynep");
+console.log("names: ",names);
+names.delete("Zehra");//Zehrayi siler
+console.log("names: ",names);
+//names.clear();//Tamamnin siler
+console.log(names.has("Adem"));//icinde Adem var mi diyoruz true gelir
+console.log("names: ",names);
+
+//Bir diziyi nasil set dizi hale getiririz
+let isimler=["Ali","Osman","Esra"];
+let setIsimler=new Set(isimler);
+console.log("setIsimler_ ",setIsimler)
+//Tekrar set diziyi normal dizi haline getirelim
+console.log([...setIsimler]);
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+   
+
+  </head>
+  
+  <body>
+    <main>
+        <button id="btn">Click</button>
+    </main>
+</body>
+
+    <script>
+
+        const btn=document.getElementById("btn");
+
+        btn.addEventListener("click",debounce_leading(()=>{
+            console.log("Selam");
+        },2000))
+        //Ilk tiklamadan sonra 2 saniye gecene kadar istedigmz kadar tiklayalim hicbir islem yapmiyor 2 saniye gecene kadar
+        //Arama islemlerinde her bir karakter de eger request gonderilecekse bunun yerine debounce ile bu islemi yapaiblirz
+
+      // Originally inspired by  David Walsh (https://davidwalsh.name/javascript-debounce-function)
+
+      // Returns a function, that, as long as it continues to be invoked, will not
+      // be triggered. The function will be called after it stops being called for
+      // `wait` milliseconds.
+
+      function debounce_leading(func, timeout = 300) {
+        let timer;
+        return (...args) => {
+          if (!timer) {
+            func.apply(this, args);
+          }
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            timer = undefined;
+          }, timeout);
+        };
+      }
+
+      function saveInput() {
+        console.log("Saving data");
+      }
+
+      const processChanges = debounce_leading(() => saveInput());
+
+      /*
+Have you noticed that when you type into a search input, there will be a delay before the typeahead results appear. This functionality is frequently controlled by a function called a debounce (it could also be a throttle function that has a similar outcome). The debounce function delays the processing of the keyup event until the user has stopped typing for a predetermined amount of time.
+
+This prevents your UI code from needing to process every event and also drastically reduces the number of API calls sent to your server. Processing every character as it’s entered could harm performance and add unnecessary load to your backend.
+
+Implementing a debounce from scratch is a common interview question. It tests your understanding of intermediate and advanced JavaScript concepts such as: async programming, callbacks, scope, and closures. It is also a practical solution used in real-world applications to improve performance and demonstrates that you understand the tools to write good code for real users.
+
+ADVANCE SEVIYE ISLEMLER BUNLAR...BILMEK COOK ONEMLI...
+DEBOUNCE
+Bir event tetiklendikten kac saniye sonra fonksiyon calissin..., uygulama ornegin resize oldugunda, her bir px de event fonksiyon invoke ediyor
+bu napiyor uygulamanin performansini cok olumsuz etkiliyor iste diyecegiz ki burda..haci sen napiyor her px de event invoke etmekte neyin nesi sen onun yerine sen kullanici resize yapmayi biraktiktan 3 saniye sonra fonksiyon  calissin mesela
+Ya da bu yine input onChange mehtodlari icin mantikli olabiliyor cunku orneign bir input text ti dusunelim icine yazilan her bir karakter de
+re-render oluyor ve bizim onlarca inputuzmu var ise onun yerine mesela sen her bir eventten ziyade kullanici inputa veri girmeyi biraktiktan 3 saniye sonra calis gibi
+Onrengini biz resize i 2 saniye sora calistir dersek o zaman, kullanici resize i biraktigi andan itibaren 2 saniye sonra fonksiyonu invoke edecek
+VE bu uygulamamiza inanilmaz bir performans artisi saglayacaktir
+THROTTLE
+Ornegin bir butonmuz var o butona tiklayinca, api ye istek gidiyor ama kullanici peki gelip arka arkaya arka arkaya butona tiklarsa
+ee defarlarca api ye istek gonderecek ve bize ciddi bir performans sorunu olarak donecek o zaman
+Iste boyle durumlarda, throttle kullanarak fonksiyonun calisma limitini ayarliyoruz, kullanici butona bastiktan sonra 20 saniye bekle diyoruz mesela
+yani bu 20 saniye icinde kullanici yine butona basarsa hicbir islem yapma, o butonun fonksiyonunu sinirliyor..
+
+*/
+    </script>
+  </body>
+</html>

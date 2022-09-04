@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //Javascriptte de gelen sayi number mi degil mi type of harcinde baska bir islem ile kontrol edebiliyoruz...
+        
+        var arr=arr;
+        const checkSort=(a)=>{
+            if(!arr.include(a) && Number.isInteger(a)){
+                arr.push(a);
+            }
+
+            return console.log(arr.sort((a,b)=>a-b));
+        }
+
+        checkSort(5);
+        checkSort(4);
+        checkSort(2);
+        checkSort("abc");
+        checkSort("44");
+        checkSort(-44);
+    </script>
+</body>
+</html>

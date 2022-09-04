@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+    .card-container {
+        display:flex;
+        flex-direction: column;
+        gap:1rem;
+        align-items:flex-start;
+    }
+
+    .card {
+        background:white;
+        border:1px solid black;
+        border-radius:.25rem;
+        padding:.5rem;
+        transform:translateX(100px);
+        opacity: 0;
+        transition:150ms;
+    }
+
+.card.show{
+    transform:translateX(0);
+    opacity: 1;
+}
+
+
+
+    </style>
+  </head>
+  <body>
+   <div class="card-container">
+    <div id="div1" class="card show ">T div1 his is a first card</div>
+    <div id="div2" class="card">This is div2  a card</div>
+    <div id="div3" class="card">This is div3  a card</div>
+    <div id="div4" class="card">This is div4  a card</div>
+    <div id="div5" class="card">This is div5  a card</div>
+    <div id="div6" class="card">This is div6  a card</div>
+    <div id="div7" class="card">This is div7  a card</div>
+    <div id="div8" class="card">This is div8  a card</div>
+    <div id="div9" class="card">This is div9  a card</div>
+    <div id="div10" class="card">This is iv10  a card</div>
+    <div id="div11" class="card">This is iv11  a card</div>
+    <div id="div12" class="card">This is iv12  a card</div>
+    <div id="div13" class="card">This is iv13  a card</div>
+    <div id="div14" class="card">This is iv14  a card</div>
+    <div id="div15" class="card">This is iv15  a card</div>
+    <div id="div16" class="card">This is iv16  a card</div>
+    <div id="div17" class="card">This is iv17  a card</div>
+    <div id="div18" class="card">This is iv18  a card</div>
+    <div id="div19" class="card">This is iv19  a last card</div>
+
+   </div>
+    <script>
+     /*
+     Yukarda div lerimiz in card class i var ve bu css ozelliklerinden dolayi opacity 0 ve gozukmiyor
+     Ama yanlarina show class ini ekledigmiz zaman transition ile birlitke gorunur hale geliyorlar
+     Biz kullanici scroll-down yapar yapmaz, show class ini ekleyip animasyonlu bir sekilde
+     kutularimizin gelmesini saglayacagiz..
+     Bu islemi tabi ki setinterval ile  yapabiliriz ancak bu performans acisindan cok da iyi bir cozum degil
+     cunku, bu background da cok fazla yuk getiriyor ve hic durmadan calisir backgroundda 
+     Onun yerine biz intersection server i kullanacagiz
+     IntersectionObserver icerissine 1 tane callback aliyor ve bazi options lar olacak bunu konfigure etme ile iligili
+     En onemli kisim bu callback dir cunku callback her birsey observe ettiginde invoke edilecek
+     yani every single time something you are observing changes its intersection, callback parqametreye 
+     entries listesi alacak, entries listesi degisiklik alan herseydir
+     Tabi biz observer imza neyi observe etmek istedigmzi soylememiz gerekiyor
+     */
+
+     const cards=document.querySelectorAll(".card");
+     const observer=new IntersectionObserver(entries=>{
+       
+        console.log("entries: ",entries);
+        console.log("Invoke ediliyor: ");
+        //show class i eger visible durumda ise ekleyecegiz yok degil ise kaldiracagiz
+        entries.forEach(entry=>{
+            // console.log("isIntersecing: ",entry.isIntersecting);
+            // console.log("isVisible: ",entry.isVisible);
+            entry.target.classList.toggle("show",entry.isIntersecting);
+            //Burda olan olay su isInterscting biz, scroll down yapinca, gordugu elementi
+            //yani ekrana gelen elementin isIntersecting i true oluyor ve o zaman da toggle devereye girip
+            //show className i veriyor ve element gorunur oluyor ama scrolldown yapmaya devam ettikce
+            //ekranda gozuken elementlerden ekran disinda kalanlarin tekrardan isIntersecting-yani kesime demek
+            //yani ekran ile kesisme demektr bu, ekran disinda kesismesi olmadigi icin o zaman ekran disinda
+            //kalan elementlerde isIntersecting false oluyor ve false olunca da show className ini de
+            //kaldiriyor
+            //intersecting true ise, toggle olacak, bu demektir ki show class i eklenmis, gorunur
+            //kaldirildiginda da false olacak
+            //Burda ekranda kac tane kutu var ise onlarin hespsi isIntersecting true, isVisible true
+            //ama ekranin altinda ve ustunde kalanlar isIntersecting false olarak geliyor
+            //IntersectionObserver, isIntersecting ile ilgili bir degisme olursa, yani false ken true olurs o zamn
+            //tetikleniyor yani kisacasi scroll dow yaptikca asagidaki elemntler gozukmeye basliyor ve 
+            //isIntersect true oluyor ve o true oldugnda, artik callback fonksiyonu invoke ediliyor
+
+
+            //BAZI WEBSITELERINDE SCROLLDOWN YAPINCA KARSIMIZA CIKAN ELEMNTLER ANIMASYONLA GELIR AMA
+            //YUKARI CIKINCA ISE, TEKRAR BURDAKI KI GIBI OLUSTURMAK YERINE, REBUILD YERNE SADECE ORDA KALMIS
+            //OLARAK GELIR ONU BURDA NASIL YAPARIZ
+                 //Her yen i  intersecting false dan true ya veya true den false donunce, tetikleniyor de callback ve show class i toggle olyordu
+        //Yapacagimz tek sey observing islemini durdurmak olacak eger isINtersecting true ise yani ekranda bir elemtn gorunur ise
+        //artik onu observing yapma deersek o zaman ekrana gelen elemntlerimiz bir daha ekran dan kaybolsa bile kaldirilmayacaktir
+        //Cunku biz ekranda gorunur olur olmaz, elemntlerimiz ekran ile kesisir kesimez, isIntersect true olur olmaz, ekranda gorunur
+        //gorunmez, oberving i kaldirdigimz icin artik ekran da gorunurlukleri kalksa bile observe islemine maruz klamaycaklari icin
+        //ekranda kalmaya devam edecekler
+        //BU LAZY LOADING ICIN HARIKA BIR YONTEMDIR SADECE BIZ ELEMENTLER EKRNDA GOZUKUR GOZUKMEZ ANIMASYON VERIP ISLEM YAPIYORUZ
+        //ONUN DISINDA EKRANA GELMIS ELEMENTLER ILE ILIGLI HICBIRSEY YAPMIYORUZ..LAZY LOADING DE MUTHIS ISE YARIYOR BU
+        //Resim sayfada gösterilmek üzereyken, resmi indiren bir kod çalıştırmak istiyorsaniz burda yapabilirsiniz, ve de ardindan hemen
+        //observing i kaldirirsiniz cunku artik ekrana image gelmistir ve bundan sonrasinda onun ilgili ekranda kalmasindan baska birsey 
+        //yapmanizi gerektirecek bir durum yoktur
+        //Sadece ekrana image gelir gelmez birseyler tetikleyebiliriz 
+
+        if(entry.isIntersecting)observer.unobserve(entry.target);
+        })
+        //BURASI ONEMLI...
+        //Sunu netlestirelim ekran i gozleme aliyor eknrandan herhangi bir element ciktiginda isIntercept yani 
+        //ekran la kesismesi ortadan kalktigi icin isIntercept true dan false e geciyor iste bu IntersectionObserver icindeki
+        //callback i tetikliyor, tam tersi de scroll down yaptikca ekrana yeni bir elemnt girdigi zaman
+        //o zaman da yeni gelen element artik ekran ile kesimeye baslgidi iicn isINtercept false dan true ya donuyor
+        //ve IntersectionObserver icindeki callback fonksyon tetikleniyor...
+   
+        
+
+
+     },
+     {
+        //threshold 0 ile 1 arasinda degerler alir ve default olarak 0 gelir
+        //Bu percentage i temsil ediyor, default olarak percentage 0 gelir
+        //elemetn ekranda gozukur hale gelir gelmez, yani ekranda intersecting-kesistigi 
+        //anlasilir, degerlerndirilir, o zaman threshold 1 olur  yani 100% ekranda 
+        //demektir, animasyon calismadan once, ekranda olur
+        //Biz threshold i 0.5 verince ekranda 50% si gozukunce animation devreye girmeye basslar
+        //threshold 0 olunca ekrana girer girmez, animasyon devreye girer ama threshold 1 olursa
+        //ekrana tamami girdikten sonra animasyon devreye girer
+        //Ekrandan cikarken de ornegin 0.1 ise threshold 10% luk kismi kalana kadar cikar
+        //10%  luk kismi kalinca da animasyonlu cikar,
+        //Yani 1 olursa tamami animasyon la girer animasyonla cikar, ama 50% olursa ilk yarisina kadar animasyon gormeyiz
+        //yarisindan sonra animasyon gorururuz
+        threshold:1,
+        rootMargin:'-100px',//ana containeriimizi 100px shrink, daraltiyhoruz, bu ne demek, container in alani icine girdigi zaman
+        //observe islemi aktif oluyor yani kesisim isIntersect false dan true ya donuyor , yani ekrana giriyor ama containeri 
+        //ekrana gore margin, koydugmzu icin ekrana girse bile 100 p yukari dogru gelip containeri in alanina girince intersect true oluyor
+        rootMargin:'100px',//ana containeriimizi 100px genisletiyoruz burda da ekrana girmeden intersect true oluyor cunku container alanini
+        //genislettik..Container asagidaki root dur normalde root da body dir default olarak ama biz root u istedigmz elemnt verebilirz
+        //Bunu da yine image lerde ornegin 250px el yukari ciktiktan sonra loading yapmak istersen bu sekilde rootmargin kullanarak
+        //isIntersect uzerinden eger true ise o zman ornegin 20px yukarda dir o zamanda tamam bu tamamen loading olmustur loading i true yapabilirm
+        //diyebiliriz..COOOK CIDDI IS GORUR BIR OZELLIKTIR
+        // root: 
+        //root ise bizim actual containerimzi yani onemsedigmiz uzerinde islem ypatimigz container dir bizim burda container olarak kullanigiz
+        //alan body dir veya documenttir cunkub iz root umuz bu olsun su olsun demedik, ondan dolayi da istedigmiz herhangi bir elementi root belirleyebilirz.Yani herhangi bir takip etmek istedigm parent elemnnti root  yapip children elementleri takip edebiliriz ornegin
+        //card-container class li elemnti root yaparsak o zaman, artik onu root olarak alir ve ekran da gorunme visible durumunda root yaptimiz elemnti baz alir ama bunu cok buyuk ihtimalle hic kullanmayiz cunku biz herzaman ana ekrana gore hareket etmek isteriz ve ana ekrani baz aliriz yani root olarak her zmaan body yi isteriz
+        
+     }
+     )
+
+     //LAZY LOADING I NASIL UYGULARIZ ONA BAKALIM SIMDIDE
+     const lastCardObserver=new IntersectionObserver(entries=>{
+            const lastCard=entries[0];
+            //Biz bu intersectionObserver da sadece tek birsey yapacagiz ondan dolayi entries[0] i aldik
+            //Biz sadece son lastCard i observe ettirmek isteiyoruz
+            //Biz sadce tek birsey observe edecgimz icin bu da sira ile tek tek observe ettigi icin biz ona tek birseyi observe etmesi
+            //icin ilk elemnti aldiriyoruz burda,2.elemnti alsa idik o zaman 2 element observe edecekti
+            if(!lastCard.isIntersecting)return;//eger lastCard visible degil ise burayi bitir asag i hic gecme diyoruz..
+            //Biz son cardimiz visible olduktan sonra, yeni cardlar load emtye baslariz, ondan dolayi sadece son card visible olduktan sonra
+            //calisacak bir fonksyon yazariz
+            loadNewCards();//Burasi yeni fetch ile gelecek uzak apiden gelecek data dir...observe ettirerek animasyonlu almayi saglariz
+            //TAbi bu datlari aldiktan sonra observe i unobserve yaparak artik observatini kaldirmis olurz, buu cook onemlidir bunu yapmazisek
+            //o zaman surekli olarak sadece bu verdimgiz cardi last card olarak takip eder ama bu card load edildikten sonra artik bizee
+            //yeni lastCard gelecek yani dinamik olmalidir ondan dolayi burdan observe i kaldirmak cook onemlidir
+            lastCardObserver.unobserve(lastCard.target);
+            lastCardObserver.observe(document.querySelector(".card:last-child"))
+        }, {
+            rootMargin:'100px'
+        })
+        //Bu sekilde lazy loading mantiginda asgi inildikce infintive bir scrolldown islemi yapabilmis oluyoruz..
+        //Biz muhtemelen lastCard visible olmadan once, yeni yeni dataya request gondermek isteyebilirz cunku zaman alacak gelmesi
+        //Bunun icinde rootMaring="100px " vererek tamamen asagi i
+
+     lastCardObserver.observe(document.querySelector(".card:last-child"))
+
+     //Ilk once card class ina sahip olan div lerimizden bir tanesine show classs ini da ekleyerek observer imizin
+     //onu observer etmesi ni saglamak icin yapariz bunu
+     //VE degisimleri intersection, yani kesisimleri, biz entries i ancak observer.observe() neyi gozlemlemsi gerektigni
+     //soyleyip sonra da o gozlemlemesi gerektigni soyeldigmiz elementin css nde degisiklikler yaparsak o zaman 
+     //entries array listsinin ne oldugnu gorebiliriz
+    
+    cards.forEach(card=>{
+        observer.observe(card);
+    })
+
+const cardContainer=document.querySelector(".card-container");
+    function loadNewCards(){
+        //Burayi api den gelen 10 card elementi gibi dusunelim ve gelen elemntleri obsever ettiriyoruz animasyonla birlikte
+        for (let index = 0; index < 10; index++) {
+            const card=document.createElement("div");
+            card.textContent="New Card";
+            card.classList.add("card");
+            observer.observe(card);
+            cardContainer.append(card);
+            
+        }
+    }
+  //1 pixel bile ekranda gorunur olur olmaz, bottom border ekranda visible olur olmaz
+  //ona visible oluyor isintersecting propery
+    /*
+  entries: [IntersectionObserverEntry]
+0: IntersectionObserverEntry
+boundingClientRect: DOMRectReadOnly {x: 8, y: 8, width: 133.53125, height: 36, top: 8, …}
+boundingClientRect bize gozlemledigmiz elementin tum boyutlarini shape of element seklini
+detayli bir sekilde verir, x,y,width,height,right,left,top,bottom gibi...
+intersectionRatio: 1
+intersectionRect: DOMRectReadOnly {x: 8, y: 8, width: 133.53125, height: 36, top: 8, …}
+hedefledigmiz şeyin ekranında görünen alan miktarı olacak
+isIntersecting: true=>bu ekranda visible ise true gelyor
+En onemli olanlardan biri isIntersecting dir bu ekranda gorunur olup olmadini verir 
+isVisible: false
+rootBounds: DOMRectReadOnly {x: 0, y: 0, width: 427.34375, height: 601.34375, top: 0, …}
+ekranımızın sınırları, çünkü root ekranımızdır, default olarak
+target: div.card.show
+target ta bizim takip ettigmiz, gozlemledimgiz seyin kendisidir
+target elementin kendisidir onun uzerinden bircok dataya erisebiliriz..
+target ta cook onemlidir onun uzernden de gozlemlenen elementin hemen hemen tum bilgilerine dogrudan erisebilirz
+time: 365.59999990463257
+[[Prototype]]: IntersectionObserverEntry
+length: 1
+[[Prototype]]: Array(0) 
+
+We can add the show class if the thing is intersecting and we can remove the show as soon as it goes off the screen
+Eger herhangi birsey intersect-kesisiyorsa show sinifi ekleyebiliriz ve de show class ini da ekrandan cikar cikmaz kaldirabilir
+    */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+    <script>
+
+        const app=document.getElementById("app");
+
+        const getUsers=()=>{
+            let users=[];
+            setTimeout(()=>{
+                  users=[{
+                    id:1,name:"Adem"
+                  },{
+                    id:2,name:"Zehra"
+                  },{
+                    id:3,name:"Zeynep"
+                  }]  
+            },2000)    
+
+            return users;
+        }
+
+       const findUser=(userId)=>{
+        const myUsers=getUsers();
+        const user=myUsers.find(user=>user.id===userId);
+        return user;
+       } 
+
+       console.log(findUser(2));//undefined
+            
+       let users=[];
+        const getUsers2=(callback)=>{
+            setTimeout(()=>{
+                  users=[{
+                    id:1,name:"Adem"
+                  },{
+                    id:2,name:"Zehra"
+                  },{
+                    id:3,name:"Zeynep"
+                  }]  
+                  callback(users);
+            },3000)    
+
+            return users;
+        }
+
+        //callback function burda tam olarak su isi yapiyor...Simdi yukarda biz asenkron bir islemden donen datayi senkron islemde alip
+        //islemeye, kullanmaya calisiyoruz ancak, asenkron islemdeki data gec geldigi, ve senkron islem daha once calisitgii icin
+        //biz, datayi almadan data varmis gibi is yapinca, tabi islemler patliyor...
+        //Peki gec gelen datayi nasil alacagiz...Yani sonucta datanin gelecegi islem asenkron ve gelmesi birkac saniyeyi buluyor o datayi ben
+        //senkron gibi calistiramayacagima gore yani o datayi ben id yi kullancagm yere aninda goturemyecegme gore o zamn ben islemi gidip 
+        //asenkron islem icerisinde yapabillemlyim....iste burda bize aracilik edecek olan callback function dir...Biz asenkron islemi yapan
+        //fonksiyona bir callback parametresi gonderecegiz...Ve o callback prametresi icerisine de , asenkron islem icinden gelen datayi paramtre
+        //olarak gonderecegiz....Dolayisi ile de bu asenkron islemi yapan methodu invoke ederken de, icerisindeki callback function i 
+        //suslu parantezlerle acip, o callback function iceriisnde yapmayi dusundugumuz islemi yapacagiz...
+        //Netice itibar ile biz, users i da aldik, user i da almis olduk....
+        //Simdi biz bu datayi gostermk isteedigmizde bu datayi gosteren ornegin, 3 saniye sonra calisacak olan bir setTime out icinde datayi
+        //innerHtml ile forEac icinde dondurerek gosterebiliriz....Ornegin....
+
+       const findUser2=(userId,callback)=>{
+        let user;
+        const myUsers=getUsers2((users)=>{
+                console.log("users: ",users);
+         user=users.find(user=>user.id===userId);
+             callback(user);   
+        });
+       } 
+
+      findUser2(2,(user)=>{
+        console.log("user: ",user);
+    })
+
+  
+
+    
+
+
+
+
+/*
+Why do we need Callback Functions?
+JavaScript runs code sequentially in top-down order. 
+However, there are some cases that code runs (or must run) 
+after something else happens and also not sequentially. 
+This is called asynchronous programming.
+
+Callbacks make sure that a function is not going to run before a task 
+is completed but will run right after the task has completed. 
+It helps us develop asynchronous JavaScript code and keeps us safe from problems and errors.
+
+In JavaScript, the way to create a callback function is to
+ pass it as a parameter to another function, and then to call 
+ it back right after something has happened or some task is completed. Let’s see how…
+*/
+    </script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="modal" src="input.js"></script>
+    <script type="modal" src="form.js"></script>
+    <script type="modal" src="createItem.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+</body>
+<script>
+const app=document.getElementById("app");
+
+ const createInput=(display,name)=>{
+    app.innerHTML+=`
+    <label for=${name}>${display}</label>
+    <input type="text" id=${name} name=${name}/>
+    
+    `;
+}
+
+const createForm=(display,field)=>{
+    return createInput(display,field);
+}
+
+const createItem=(display,field)=>{
+    console.log("createItem");
+    return createForm(display,field);
+}
+
+
+createItem("Name","name");
+createItem("Title","title");
+</script>
+</html>

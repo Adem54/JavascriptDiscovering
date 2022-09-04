@@ -1,0 +1,16 @@
+JavaScript’in nasıl çalıştığını anlamanın her geliştirici için önemli olduğunu düşünüyorum.
+ Umarım JavaScript Engine’nin kodunuzu nasıl yorumladığı hakkında fikir sahibi olmuşsunuzdur. 
+Yazının başında da dediğim gibi bu kavramları anlamak kodunuzda beklemediğiniz sonuçlarla
+ karşılaştığınızda, kodunuzu değerlendirmeniz için son derece önemlidir. 
+Bunların dışında yine çok önemli olan konulardan Prototype, 
+Class, IIFE (Immediately Invoked Function Expression), Module Pattern,
+ Asynchronous, Callback Function ve Promises gibi konuları da anlamak çok önemlidir. 
+İnternette bunlarla ilgili bir sürü döküman mevcut.
+
+Bu konularda daha geniş bilgiye sahip olmak için Eloquent JavaScript, JavaScript: 
+The Good Parts ve You Don’t Know JS kitaplarını okumanızı tavsiye ederim. 
+Kurs olarak ise internette bunlarla ilgili baya bir eğitim var ama benim 
+de yazıyı yazarken yararlandığım JavaScript: Understanding the Weird 
+Parts kursunu öneririm. Kursta yukarıda saydığım tüm kavramlar net bir şekilde açıklanıyor.
+ Ayrıca Oğuz Kılıç’ın bu linkten ulaşabileceğiniz tarayıcıların JavaScript’i 
+nasıl yorumladığını açıklayan çok güzel ve detaylı bir yazısı mevcut.

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const IntlNfNO = new Intl.NumberFormat("no-NO", {
+          style: "currency",
+          currency: "NOK",
+        }),
+        Intl_NOK = (v) => IntlNfNO.format(v).replace("NOK", "kr");
+      console.log(Intl_NOK(123));
+      console.log(Intl_NOK(456));
+
+
+       const result=Intl.NumberFormat("no-NO").format(100);
+       console.log("result: ",result);
+    </script>
+  </body>
+</html>

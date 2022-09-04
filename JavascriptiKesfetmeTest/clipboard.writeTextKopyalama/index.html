@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="input">
+<button onclick="copyToClipboard()">Copy to clipboard</button>
+<div id=output></div>
+    <script>
+     function copyToClipboard() {
+let input;
+input = document.getElementById('input').value;
+navigator.clipboard.writeText(input)
+.then(res => alert("Copy successful!"))
+.catch(err => alert("Copy failed"))
+}
+
+
+async function writeDataToClipboard(){
+    let result=await navigator.clipboard.writeText("Sample");
+    console.log("result:", result);
+}
+    </script>
+  </body>
+</html>

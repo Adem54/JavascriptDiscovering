@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+      
+    </div>
+    <script>
+        
+        //1-dogrudan karakter uzerinden cozebiliriz
+        let info=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium dicta similique illum tempora aperiam illo eos pariatur tenetur, voluptate esse eaque, minima, repellat quia voluptas delectus nisi deleniti eveniet magnam! Nisi incidunt non perspiciatis laborum voluptates cum distinctio illum architecto, necessitatibus quo atque dolores, ducimus unde molestias! Atque accusamus ex assumenda reprehenderit repellat fugit temporibus porro, quia cupiditate doloremque aut! Id eius atque qui nulla consectetur soluta repellat omnis porro. Laboriosam harum error quaerat dolor rem reiciendis itaque? Placeat illo cum itaque cumque reprehenderit. Consectetur eligendi ad vero asperiores distinctio.";
+
+        const limitText=info.substring(0,100);
+        console.log("limitText: ", limitText+"...");
+
+        //2. kelime kelime al dizi yap..
+         //split kullanarak stringi dizi haline ceviriyoruz, arada hangi kritere gore cevirecek isek onu belirtiriz..   
+        const text=info.split(" ");
+        console.log("text", text);
+        
+        let result="";
+        for(let i=0; i<text.length; i++){
+            if(i===20){
+                break;
+            }
+            if(i===19){
+                result+=`${text[i]}...`;
+            }else{
+                result+=`${text[i]} `;
+            }
+        }
+
+        console.log("result: ",result);
+    </script>
+</body>
+</html>

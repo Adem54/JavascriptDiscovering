@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        The fill() Method
+fill() fills specified elements in an array with a value.
+        */
+        const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        console.log(Array(10).fill("Kiwi"));//Dizi icinde 10 kez kiwi yazar
+
+
+        console.log(Array(10).fill());//10 kez undefined yazan dizi olousturur
+
+        //1 den 10 a kadar degerleri dizi icine yazar
+        console.log(Array(10).fill().map((_,index)=>index+1));
+    </script>
+</body>
+</html>

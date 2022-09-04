@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let numbers = [
+        1, 4, 7, 8, 9, 0, 12, 32, 12, 33, 44, 77, 88, 43, 28, 92, 65,
+      ];
+      // const result=numbers.filter((item,index)=>{
+      //     let lastElementIndex=numbers.length-1;
+      //     if(index>lastElementIndex-10){
+      //         return item;
+      //     }
+      // })
+      console.log("slice-result2: ",numbers.slice(numbers.length-11));
+
+        console.log("splice-result: ",numbers.splice(numbers.length-10));
+        console.log("slice-result: ",numbers.slice(numbers.length-11,numbers.length-1));
+
+
+      const getLastTenElementsInArray = (array) => {
+         return array.filter((item, index) => {
+          let lastElementIndex = array.length - 1;
+          if (index > lastElementIndex - 10) {
+            return item;
+          }
+        });
+      };
+
+      console.log("result:", getLastTenElementsInArray(numbers));
+
+      const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+      console.log("fruits: ",fruits.slice(1))
+    </script>
+  </body>
+</html>

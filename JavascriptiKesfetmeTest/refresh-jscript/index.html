@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 id="h2">Count:</h2>
+
+    <button
+    type="button"
+    onClick="window.location.reload();"
+    >Refresh for update values</button>
+
+    <button
+    type="button"
+    onClick="window.history.go()"
+    >History-go</button>
+    <!-- history.go() da reload a bir alternatiftir ve sayfayi refresh etmek icin kullanaibiliriz -->
+    <script>
+    let model={
+        count:0,
+    }
+
+
+    const title=document.getElementById("h2");
+    console.log("title: ",title);
+    
+    // document.location.reload();
+    //Bu sekilde kullanirsak kendisi surekli durmadan sayfayi yeniler boyle kullanmanin mantigi yok ama butona tiklayinca calissin dersek biz
+    //butona tiklayinca o zaten direk sayfayi reload eder..
+
+//Her 3 saniyede bir sayfayi refresh eder
+    // setTimeout(() => {
+    //  document.location.reload();
+        
+    // }, 3000);
+    
+
+
+
+
+    </script>
+</body>
+</html>

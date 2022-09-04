@@ -1,0 +1,8 @@
+Bu konularda daha geniş bilgiye sahip olmak için Eloquent JavaScript,
+ JavaScript: The Good Parts ve You Don’t Know JS kitaplarını okumanızı tavsiye ederim.
+ Kurs olarak ise internette bunlarla ilgili baya bir eğitim var
+ ama benim de yazıyı yazarken yararlandığım JavaScript: 
+Understanding the Weird Parts kursunu öneririm. 
+Kursta yukarıda saydığım tüm kavramlar net bir şekilde açıklanıyor.
+ Ayrıca Oğuz Kılıç’ın bu linkten ulaşabileceğiniz tarayıcıların JavaScript’i nasıl
+ yorumladığını açıklayan çok güzel ve detaylı bir yazısı mevcut.

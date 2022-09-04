@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const str = "1,995";
+      const num1 = str.replace(",", ".");
+      console.log("num1: ", typeof num1);
+      const convNum = parseFloat(num1);
+      console.log("convNum: ", convNum);
+      let formatted = new Intl.NumberFormat("en-US", {
+        currency: "USD",
+        style: "currency",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 3,
+      }).format(convNum);
+      console.log("formatted: ", formatted.toString().replace(".", ","));
+      //1.995 gibi bir sayida, bu kendisi normalde default olarak 2 haneliye izin verdigi icin
+      //ne yapiyor otomatik 2 haneliye en yakina yuvarliyor ancak biz default gelen option u
+      //3 yaparsak o zaman 3 haneli datayi da alabiliyoruz
+    </script>
+  </body>
+</html>
