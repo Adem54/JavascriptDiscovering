@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Ayni url e i baska tab da acmaya calisinca, uyari veriyor burda
+        // Broadcast that you're opening a page.
+    localStorage.openpages = Date.now();
+    window.addEventListener('storage', function (e) {
+        if(e.key == "openpages") {
+            // Listen if anybody else is opening the same page!
+            localStorage.page_available = Date.now();
+        }
+        if(e.key == "page_available") {
+            alert("One more page already open");
+        }
+    }, false);
+    </script>
+</body>
+</html>

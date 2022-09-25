@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        const data=[
+            {
+                name:"repo-1",
+                language:null,
+                stargazers_count:2,
+                forks_count:0
+
+            }, {
+                name:"repo-2",
+                language:"Javascript",
+                stargazers_count:4,
+                forks_count:3
+
+            },
+            {
+                name:"repo-3",
+                language:"Html",
+                stargazers_count:5,
+                forks_count:7
+
+            },
+            {
+                name:"repo-4",
+                language:"Css",
+                stargazers_count:4,
+                forks_count:5
+
+            },
+            {
+                name:"repo-5",
+                language:"Javascript",
+                stargazers_count:3,
+                forks_count:4
+
+            },
+            {
+                name:"repo-6",
+                language:"Html",
+                stargazers_count:8,
+                forks_count:1
+
+            },
+            {
+                name:"repo-7",
+                language:"Html",
+                stargazers_count:4,
+                forks_count:2
+
+            },
+            {
+                name:"repo-8",
+                language:"Css",
+                stargazers_count:1,
+                forks_count:4
+
+            },
+            {
+                name:"repo-9",
+                language:"Javascript",
+                stargazers_count:5,
+                forks_count:4
+
+            },
+            {
+                name:"repo-10",
+                language:"Javascript",
+                stargazers_count:8,
+                forks_count:7
+
+            },
+
+        ]
+
+       
+
+const result2=data.reduce(getLanguage,[]);
+function getLanguage(arr,item){
+  let { language,stargazers_count } = item;
+  if (language !== null) {
+    if ((arr.length===0)) {
+      arr.push({language,value:1,star:stargazers_count});
+    } else if(arr.some(item=>item.language===language)) {
+      // console.log("language: ", language);
+     arr= arr.map(item=>item.language===language ? {...item,value:item.value+1,star:item.star+stargazers_count} : item )
+    }else {//Eger gelen language array icinde hic yok ise o zaman sen o language i de ilk defa eklenecek sekilde ekle diyorz
+        arr.push({language,value:1,star:stargazers_count});
+    }
+  }
+
+  return arr;//her seferinde obje basa donuyor ve en son bu obje ne ise 
+  //result2 de o olarak donecek
+}
+
+ console.log("result2:",result2);
+
+//[{name:"repo1",star:13,fork:10},{name:"repo1",star:13,fork:10},....]
+ let result3=data.reduce(getReposNameByStarAndFork,[]).sort((a,b)=>b.stars - a.stars);
+ result3=result3.length>5 ? result3.slice(0,5) : result3;
+
+ //arr ilk deger ile baslar bos array []
+ //item ise data icindeki her bir obje elemntidir
+ function getReposNameByStarAndFork(arr, item){
+            const {name,stargazers_count,forks_count}=item;
+            if(name!==null){
+                if(arr.length===0){
+                    arr.push({name,stars:stargazers_count,forks:forks_count})
+                }else if(arr.some(item=>item.name===name)){
+                    arr=arr.map(item=>item.name===name ? {...item,stars:item.stars+stargazers_count, forks:item.forks+forks_count} : item)
+                }else {
+                    arr.push({name,stars:stargazers_count,forks:forks_count})
+                }
+            }
+            return arr;
+ }
+
+ console.log("result3: ",result3);
+
+ let result4=data.reduce(getReposNameByStarAndFork,[]).sort((a,b)=>b.forks - a.forks);
+ result4=result4.length>5 ? result4.slice(0,5) : result4;
+ console.log("result4: ",result4);
+ 
+
+    </script>
+</body>
+</html>

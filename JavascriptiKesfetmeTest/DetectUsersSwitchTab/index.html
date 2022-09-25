@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Page Visibility API is hidden/visible</h1>
+    <ul class="tsummary">
+        <li>detect when the page is hidden/visible</li>
+        <li>can be used to save resources or pause automatic actions</li>
+        <li>even detects when the window is minimized</li>
+    </ul>
+<hr/>
+    <div id="info"></div>
+ <script>
+document.addEventListener("visibilitychange",function(){
+    document.title=document.visibilityState;
+    //webpage in title ina, visibilityStae i atama yapiyoruz,2 deger alabiir, hidden,visible diye
+    console.log(document.visibilityState);
+    //Eger kullanici, kendi tabindan baska bir taba gecer ise o zaman document.visibilityState hidden oluyor
+    //Ama kullanici kendi tabinda kalirsa o zaman, da document.visibilityState visible oluyor
+    //Kendi tabini asagi indirince, minimze yapinca da hidden gelecek bu deger
+    console.log("document-hidden: ",document.hidden);//Ayni sekilde tab degistirme, veya tabi minimize etme durumlarinda
+    //true gelirken, eger ayni tabda kalirsa o zaman false gelecektir hidden degeri
+
+})
+    
+
+let counter=0;
+document.addEventListener("visibilitychange", function(){
+    document.title=document.visibilityState;
+    console.log(document.visibilityState);
+    console.log("document-hidden: ",document.hidden);//Ayni sekilde tab degistirme, veya tabi minimize etme durumlarinda
+if(document.hidden){
+    counter+=1;
+    document.getElementById("info").innerHTML="The tab has been MInimized or Switched "+ counter+ " times"
+}
+
+})
+ </script>
+</body>
+</html>
+
+

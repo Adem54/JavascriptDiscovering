@@ -1,0 +1,51 @@
+<html>
+  <div id="container">
+    <h3>Total Covid Cases</h3>
+    <h2 id="total-cases"></h2>
+  </div>
+
+  <script>
+    console.log("index.html 7 | Get Covid Data");
+
+    //MUltiple apu request
+    const getCovidData = async () => {
+      console.log("index.html 10 | Processing...");
+      const request = await fetch("https://covid19.mathdro.id/api");
+      const data = await request.json();
+      return data;
+    };
+
+    const getMoreAPIDataWithUrl=async(newUrl)=>{
+        const req=await fetch(newUrl);
+        const data=await req.json();
+        return data;
+    }
+
+
+    getCovidData().then(covidData => {
+      console.log("index.html 16 | covid data", covidData);
+      document.getElementById("total-cases").innerText =
+        covidData.confirmed.value;
+        getMoreAPIDataWithUrl(covidData.confirmed.detail).then(newData=>console.log("newDAta: ",newData))
+    });
+    //Burdaki ornegimizde bizim https://covid19.mathdro.id/api endpointimze gonderilen
+    //istekten donen response icinde yine endpointler donuyor ve o endpointlere de
+    //bizim request gondermemiz gerekiyor cunku kullaniciya gosterecegimiz datalarin bir kismida
+    //ilk yapilan response dan gelen endpointler e yeni bir request gondererek elde edilebilecek
+    /*
+    {
+        confirmed: {value: 610425326, detail: 'https://covid19.mathdro.id/api/confirmed'}
+        countries: "https://covid19.mathdro.id/api/countries"
+        countryDetail: {pattern: 'https://covid19.mathdro.id/api/countries/[country]', example: 'https://covid19.mathdro.id/api/countries/USA'}
+        dailySummary: "https://covid19.mathdro.id/api/daily"
+        dailyTimeSeries: {pattern: 'https://covid19.mathdro.id/api/daily/[dateString]', example: 'https://covid19.mathdro.id/api/daily/2-14-2020'}
+        deaths: {value: 6520534, detail: 'https://covid19.mathdro.id/api/deaths'}
+        image: "https://covid19.mathdro.id/api/og"
+        lastUpdate: "2022-09-15T09:21:02.000Z"
+        recovered: {value: 0, detail: 'https://covid19.mathdro.id/api/recovered'}
+        source: "https://github.com/mathdroid/covid19"
+    }
+    
+    */
+  </script>
+</html>

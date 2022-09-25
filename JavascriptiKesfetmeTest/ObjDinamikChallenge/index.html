@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+     <script>
+const adamLanguage={CSS: 5, Ruby: 2, VimL: 1, PHP: 1};
+const smilgaLanguages={JavaScript: 17, CSS: 9, HTML: 3,Java:7, Ruby:9,Pyhton:12}
+const adem54Languages={ 
+CSS: 1,
+HTML: 3,
+Java: 1,
+JavaScript: 10,
+TSQL: 1,
+TypeScript: 1
+}
+
+console.log("entries: ",Object.entries(smilgaLanguages))
+
+Object.entries(smilgaLanguages).map((item,index)=>{
+
+})
+
+//item: ["CSS",9]
+//obj ise bos bir obje ile baslayacak ama her islem sonucunda hangi objeyi
+function sortLanguageValues(obj,item){
+
+}
+
+const getChartData=(obj)=>{
+ return   Object.keys(obj).fill("").map((item,index)=>{
+          let label= Object.keys(obj)[index];
+          let value=  Object.values(obj)[index];
+          return {label,value}
+    })
+}
+
+
+console.log("adamLanguage: ",getChartData(adamLanguage));
+console.log("smilgaLanguages: ",getChartData(smilgaLanguages));
+console.log("adem54Languages: ",getChartData(adem54Languages));
+
+const count=0;
+//Icinde objeler bulunan, dizi icinde siralama yapmak
+const result=getChartData(smilgaLanguages).sort(function(a,b){
+    return b.value - a.value
+});
+function getFirstFiveData(arr){
+    if(arr.length<=5){
+        return arr;
+    }else{
+        return arr.slice(0,5);
+    }
+}
+
+console.log("getFirstFiveData: ",getFirstFiveData(result));
+
+
+
+console.log("result: ",result);
+
+
+// const chartData = [
+//   {
+//     label: "HTML",
+//     value: repos["HTML"]
+//   },
+//   {
+//     label: "CSS",
+//     value: repos["CSS"]
+//   },
+//   {
+//     label: "Java",
+//     value: repos["Java"]
+//   },
+//   {
+//     label: "JavaScript",
+//     value: repos["JavaScript"]
+//   },
+//   {
+//     label: "TSQL",
+//     value: repos["TSQL"]
+//   },
+//   {
+//     label: "TypeScript",
+//     value: repos["TypeScript"]
+//   },
+//   {
+//     label: "C#",
+//     value: repos["C#"]
+//   },
+ 
+// ];
+        </script>
+</body>
+</html>
+
+
