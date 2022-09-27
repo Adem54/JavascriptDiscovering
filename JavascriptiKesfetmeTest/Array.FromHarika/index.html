@@ -32,6 +32,84 @@
       let result2 = Array.from(set);
       //[ 'JavaScript', 'Python', 'Go' ]
       console.log(result2);
+
+      // const resultStart=Array.fill(0).
+      function findStarResult(star) {
+        let arr = [];
+        let myResult = "";
+        for (let index = 0; index < 5; index++) {
+          if (index + 1 <= star) {
+            myResult = "TAm dolu star"; //Buralara tam dolu star iconu getirilecek
+          } else if (index + 0.1 <= star) {
+            myResult = "Yarim dolu star";
+          } else {
+            myResult = "Tam bos star";
+          }
+          arr.push(myResult);
+        }
+        console.log("arr: ", arr);
+        return arr;
+      }
+      const star1 = 3.3; // 1 1 1 .3 0
+      //3=> 1 1 1 0 0
+      //4=> 1 1 1 1 0
+      //2.3=>1 1 .3 0 0
+      const star2 = 4.3;
+      const star3 = 2.3;
+      const star4 = 3.1;
+      const star5 = 5;
+      findStarResult(star1);
+      findStarResult(star2);
+      findStarResult(star3);
+      findStarResult(star4);
+      findStarResult(star5);
+
+      let myStarRes = "";
+      let starArr = [];
+
+      const stars = 4.2;
+
+      const tempStars = Array.from({ length: 5 }, (_, index) => {
+        const number = index + 0.5;
+        console.log("index: ",index);
+        if (stars >= index + 1) {
+          myStarRes = "BsStarFill";
+        } else if (stars >= number) {
+          myStarRes = "BsStarHalf";
+        } else {
+          myStarRes = "BsStar";
+        }
+        return myStarRes;
+      });
+
+      console.log(tempStars);
+
+     const res= Array.from({length:5},(_,index)=>{
+        console.log("iiii: ",index)
+      })
+
+      console.log("res: ",res);
+
+      
+
+      //Array.from() icinde {length:5} degeri obje icinde length degeri tanimlidir ve de o array in kac tane element olarak 
+      //donecegini belirtir...cook onemli bestpractise...
+      const someNumbers = { '0': 10, '1': 15, length: 2 };
+Array.from(someNumbers, value => value * 2); // => [20, 30]
+
+//4. Fill an array with values
+
+var length = 3;
+var init   = 0;
+var resultt = Array.from({ length }, () => init);
+resultt; // => [0, 0, 0]
+
+
+
+var length = 3;
+var init   = 0;
+var resultt = Array(length).fill(init);
+//fillArray2(0, 3); // => [0, 0, 0]
     </script>
   </body>
 </html>

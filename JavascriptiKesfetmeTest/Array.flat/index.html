@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const numbers = [1, 2, [3, 4, 5]];
+const flatNumbers = numbers.flat();
+
+console.log(flatNumbers);//[1, 2, 3, 4, 5]
+console.log(numbers);//[ 1, 2, [ 3, 4, 5 ] ]
+
+const numbers2 = [1, 2, [3, 4, 5, [6, 7]]];
+const flatNumbers2 = numbers.flat(2);
+
+console.log(flatNumbers2);//[1, 2, 3, 4, 5, 6, 7]
+
+
+const numbers3 = [1, 2, [3, 4, 5, [6, 7, [8, 9]]]];
+const flatNumbers3 = numbers.flat(Infinity);
+const flatNumbers4 = numbers.flat(2);
+const flatNumbers5 = numbers.flat(3);
+const flatNumbers6 = numbers.flat(4);
+const flatNumbers7 = numbers.flat(5);
+
+console.log(flatNumbers3);
+console.log(flatNumbers4);
+console.log(flatNumbers5);
+console.log(flatNumbers6);
+console.log(flatNumbers7);
+
+//flat ile ic ice nesten olan dizi leri o dizinin normal elemani gibi icinde oldugu dizi den kendi icinde olduug ana dizinin elemani 
+//olarak cikaririz.. Ayrica, flat() direk hicbir parametre vermeden kullanirsak o zaman flat 1 olarak kabul eder default ta 1 dir cunku
+    </script>
+</body>
+</html>

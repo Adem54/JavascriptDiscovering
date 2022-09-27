@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+            const names=[
+                {id:1,name:"Adem"},
+                {id:2,name:"Ahmet"},
+                {id:3,name:"Zehra"},
+                {id:4,name:"Zeynep"},
+                {id:5,name:"Sercan"},
+                {id:6,name:"Adem"},
+                {id:7,name:"Zeynep"},
+                {id:8,name:"Zehra"},
+                {id:9,name:"Sercan"},
+                {id:10,name:"Ahmet"},
+                {id:11,name:"Adem"},
+            ]
+            //Bu dizimizi nasil icinde uniq name lerden olusan sade bir dizi haline getiririz ona bakalim simdi
+
+
+            const justNames=names.map(item=>{
+                return item.name;
+            })
+            console.log("justNames: ",justNames);
+
+               const result=new Set(justNames);
+               console.log("result: ",result); 
+               //new Set ile uniq olarak datamiza erisebiliriz
+
+ //BESTPRACTISE FILTER IN PARAMETRESINE DIZI ICINDEKI HER BIR ELEMAN OLAN ITEM, INDEX VE DE YINE DIZININ KEDISINI ALABILIYORUZ
+                //indexOf bir dizi icindeki elemenlerden direk elemn uzerinden arama yapip dizi icinde o elementin index ini dondurur ama o
+                //elementi bulamaz ise o zaman -1 dondururu ancak burdaki espiri yakalamak icin sunu anlayalim, bir dizi icinde eger ayni elemandan 
+                //birden fazla var ise o zaman indexOf hangi elemani getirecek, boyle durumlarda indexOf her zaman aradigi elemani ilk buludugu yerdeki
+                //index numarasini getirecektir..iste bu ozelligi biz icinde tekrar eden elementleri olan bir dizyi uniq elementlerden olusan dizi haline getiriken kullanaibliriz
+                console.log(justNames.indexOf("Adem"))
+                console.log(justNames.indexOf("Sercan"))
+               const result2=justNames.filter((item,index,arr)=>{
+                    return arr.indexOf(item)===index;
+               })
+
+               console.log("result2: ",result2);
+
+    </script>
+</body>
+</html>
